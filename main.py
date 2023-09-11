@@ -4,6 +4,10 @@
 #Import numpy for math functions
 import matplotlib.pyplot as plt
 import numpy as np
+import math
+
+###Shape list to store the coords of unkown shape
+shape = []
 
 shape_check_1 = {"square": ["1_parallel", "2_parallel,", "all_sides_equal", "all_angle_90", "2_pair_equal_adjacent_side"], 
                "rhombus": ["1_parallel", "2_parallel,", "all_sides_equal", "2_pair_equal_adjacent_side"],
@@ -18,11 +22,17 @@ shape_check_2 = {"square": ["perpendicular_diagonals", "1_diagonal_bisect_other"
                  "kite": ["perpendicular_diagonals", "1_diagonal_bisect_other", "1_bisect_angle"],
                  "trapezium": []}
 
-shape = []
+###2 lists below for each shape_check respectively
+###Each list will slowly be built up as properties are identified
 
+shape_1 = []
+shape_2 = []
 #a and b will be tuples holding coordinates
 def side_length(a, b):
-    pass
+    side_a = a[0] - b[0]
+    side_b = a[1] - b[1]
+    side_c = math.sqrt(side_a**2 + side_b**2)
+    return side_c
 
 def invalid_input(coord):
     if coord in shape:
@@ -49,3 +59,4 @@ if invalid_input(D) is True:
     D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
 
 
+print(side_length(shape[0], shape[1]))
