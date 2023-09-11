@@ -5,6 +5,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+shape_check_1 = {"square": ["1_parallel", "2_parallel,", "all_sides_equal", "all_angle_90", "2_pair_equal_adjacent_side"], 
+               "rhombus": ["1_parallel", "2_parallel,", "all_sides_equal", "2_pair_equal_adjacent_side"],
+               "rectangle": ["1_parallel", "2_parallel,", "all_angle_90"],
+               "parallelogram": ["1_parallel", "2_parallel,"],
+               "kite": ["2_pair_equal_adjacent_side"],
+               "trapezium": ["1_parallel"]}
+shape_check_2 = {"square": ["perpendicular_diagonals", "1_diagonal_bisect_other", "2_diagonal_bisects_others", "1_bisect_angle", "2_bisect_angles", "diagonals_equal_length"],
+                 "rhombus": ["perpendicular_diagonals", "1_diagonal_bisect_other", "2_diagonal_bisects_others", "1_bisect_angle", "2_bisect_angles"],
+                 "rectangle": ["1_diagonal_bisect_other", "2_diagonal_bisects_others", "diagonals_equal_length"],
+                 "parallelogram": ["1_diagonal_bisect_other", "2_diagonal_bisects_others"],
+                 "kite": ["perpendicular_diagonals", "1_diagonal_bisect_other", "1_bisect_angle"],
+                 "trapezium": []}
+
 shape = []
 
 #a and b will be tuples holding coordinates
@@ -20,17 +33,19 @@ def invalid_input(coord):
 
 #User Input
 
+### "Empty" Variables, simply to make code more understandable
+### Inputs not dusted up for expetions yet, will fix later
 A = shape.append(tuple(map(int, input("Vertex A: ").split(","))))
-if invalid_input(A):
+if invalid_input(A) is True:
     A = shape.append(tuple(map(int, input("Error: Vertex A: ").split(","))))
 B = shape.append(tuple(map(int, input("Vertex B: ").split(","))))
-if invalid_input(B):
+if invalid_input(B) is True:
     B = shape.append(tuple(map(int, input("Error: Vertex B: ").split(","))))
 C = shape.append(tuple(map(int, input("Vertex C: ").split(","))))
-if invalid_input(C):
+if invalid_input(C) is True:
     C = shape.append(tuple(map(int, input("Error: Vertex C: ").split(","))))
 D = shape.append(tuple(map(int, input("Vertex D: ").split(","))))
-if invalid_input(D):
+if invalid_input(D) is True:
     D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
 
-print(shape)
+
