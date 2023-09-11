@@ -20,17 +20,17 @@ def invalid_input(coord):
 
 #User Input
 
-A = input("Vertex A: ")
+A = shape.append(tuple(map(int, input("Vertex A: ").split(","))))
 if invalid_input(A):
-    A = input("Error: Vertex A: ")
-B = input("Vertex B: ")
+    A = shape.append(tuple(map(int, input("Error: Vertex A: ").split(","))))
+B = shape.append(tuple(map(int, input("Vertex B: ").split(","))))
 if invalid_input(B):
-    B = input("Error: Vertex B: ")
-C = input("Vertex C: ")
+    B = shape.append(tuple(map(int, input("Error: Vertex B: ").split(","))))
+C = shape.append(tuple(map(int, input("Vertex C: ").split(","))))
 if invalid_input(C):
-    C = input("Error: Vertex C: ")
-D = input("Vertex D: ")
+    C = shape.append(tuple(map(int, input("Error: Vertex C: ").split(","))))
+D = shape.append(tuple(map(int, input("Vertex D: ").split(","))))
 if invalid_input(D):
-    D = input("Error: Vertex D: ")
+    D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
 
-print(tuple(A.split(",")))
+print(shape)
