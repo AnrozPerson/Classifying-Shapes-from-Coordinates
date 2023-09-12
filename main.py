@@ -60,17 +60,23 @@ def find_all_angles(coord):
     angles.append(find_angle(coord[2], coord[3], coord[0]))
     return angles
 
-###Parallel lines will have equal alternate angles
+def find_gradient(point_a, point_b):
+    try:
+        m = (point_a[1]-point_b[1])/(point_a[0]-point_a[0])
+    except:
+        m = "up"
+    return m
+###Parallel lines have same GRADIENT!
 ###Current code does not work with trapezium, only parallelograms, rhombuses, squares and rectangles
-def find_parallel_1(angle_list):
-    if angle_list[0] == angle_list[2]:
+def find_parallel_1(coord):
+    if find_gradient(coord[0], coord[1]) == find_gradient(coord[2],coord[3]):
         return "1_parallel"
-    elif angle_list[1] == angle_list[3]:
+    elif find_gradient(coord[0], coord[3]) == find_gradient(coord[1],coord[2]):
         return "1_parallel"
     pass
 
-def find_parallel_2(angle_list):
-    if angle_list[0] == angle_list[2] and angle_list[1] == angle_list[3]:
+def find_parallel_2(coord):
+    if find_gradient(coord[0], coord[1]) == find_gradient(coord[2],coord[3]) and find_gradient(coord[0], coord[3]) == find_gradient(coord[1],coord[2]):
         return "2_parallel"
     pass
 
@@ -100,7 +106,7 @@ def all_angles_90(coord):
     count = 0
     a = find_all_angles(coord)
     for i in a:
-        if i == 90.00000000000001:
+        if round(int(i), 2) == 90.0:
             count += 1
     if count == 4:
         return "all_angle_90"
@@ -133,8 +139,8 @@ if invalid_input(D) is True:
 
 ###Tests
 
-shape_1.append(find_parallel_1(find_all_angles(shape)))
-shape_1.append(find_parallel_2(find_all_angles(shape)))
+shape_1.append(find_parallel_1(shape))
+shape_1.append(find_parallel_2(shape))
 shape_1.append(all_side_equal(shape))
 shape_1.append(all_angles_90(shape))
 shape_1.append(adjacent_sides_equal_2(shape))
