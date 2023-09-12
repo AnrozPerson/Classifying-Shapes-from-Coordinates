@@ -52,10 +52,10 @@ def find_angle(point_a, point_b, point_c):
 
 def find_all_angles(coord):
     angles = []
-    angles.append(round(5, find_angle(coord[3], coord[0], coord[1])))
-    angles.append(round(5, find_angle(coord[0], coord[1], coord[2])))
-    angles.append(round(5, find_angle(coord[1], coord[2], coord[3])))
-    angles.append(round(5, find_angle(coord[2], coord[3], coord[0])))
+    angles.append(find_angle(coord[3], coord[0], coord[1]))
+    angles.append(find_angle(coord[0], coord[1], coord[2]))
+    angles.append(find_angle(coord[1], coord[2], coord[3]))
+    angles.append(find_angle(coord[2], coord[3], coord[0]))
     return angles
 
 ###Parallel lines will have equal alternate angles
@@ -98,7 +98,7 @@ def all_angles_90(coord):
     count = 0
     a = find_all_angles(coord)
     for i in a:
-        if i == 90.00000:
+        if i == 90.00000000000001:
             count += 1
     if count == 4:
         return "all_angle_90"
@@ -131,4 +131,10 @@ if invalid_input(D) is True:
 
 ###Tests
 
-print(find_all_angles(shape))
+shape_1.append(find_parallel_1(find_all_angles(shape)))
+shape_1.append(find_parallel_2(find_all_angles(shape)))
+shape_1.append(all_side_equal(shape))
+shape_1.append(all_angles_90(shape))
+shape_1.append(adjacent_sides_equal_2(shape))
+
+print(shape_1)
