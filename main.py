@@ -34,7 +34,24 @@ def side_length(a, b):
     side_c = math.sqrt(side_a**2 + side_b**2)
     return side_c
 
+###AB, BC, CD and DA are all sides
+###shape[0] to shape[1], shape[1] to shape[2] etc.
 def all_side_equal(coord):
+    if side_length(coord[0], coord[1]) == side_length(coord[1], coord[2]) == side_length(coord[2], coord[3]) == side_length(coord[3], coord[0]):
+        return "all_sides_equal"
+    else:
+        return False
+###Find angle should take 3 points and find angle for centre point
+###Use the law of cosines
+###Find Angle of point_b
+def find_angle(point_a, point_b, point_c)
+    side_a = side_length(point_a, point_b)
+    side_b = side_length(point_b, point_c)
+    side_c = side_length(point_c, point_a)
+    angle = np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c))
+    return angle
+
+def find_all_angles(coord):
     pass
 
 def invalid_input(coord):
@@ -61,5 +78,3 @@ D = shape.append(tuple(map(int, input("Vertex D: ").split(","))))
 if invalid_input(D) is True:
     D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
 
-
-print(side_length(shape[0], shape[1]))
