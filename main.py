@@ -44,15 +44,36 @@ def all_side_equal(coord):
 ###Find angle should take 3 points and find angle for centre point
 ###Use the law of cosines
 ###Find Angle of point_b
-def find_angle(point_a, point_b, point_c)
+def find_angle(point_a, point_b, point_c):
     side_a = side_length(point_a, point_b)
     side_b = side_length(point_b, point_c)
     side_c = side_length(point_c, point_a)
-    angle = np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c))
+    angle = np.degrees(np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c)))
     return angle
 
 def find_all_angles(coord):
-    pass
+    angles = []
+    angles.append(find_angle(coord[3], coord[0], coord[1]))
+    angles.append(find_angle(coord[0], coord[1], coord[2]))
+    angles.append(find_angle(coord[1], coord[2], coord[3]))
+    angles.append(find_angle(coord[2], coord[3], coord[0]))
+    return angles
+
+###Parallel lines will have equal alternate angles
+def find_parallel_1(angle_list):
+    if angle_list[0] == angle_list[2]:
+        return "1_parallel"
+    elif angle_list[1] == angle_list[3]:
+        return "1_parallel"
+    else:
+        return False
+
+def find_parallel_2(angle_list):
+    if angle_list[0] == angle_list[2] and angle_list[1] == angle_list[3]:
+        return "2_parallel"
+    else:
+        return False
+
 
 def invalid_input(coord):
     if coord in shape:
@@ -78,3 +99,6 @@ D = shape.append(tuple(map(int, input("Vertex D: ").split(","))))
 if invalid_input(D) is True:
     D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
 
+###Tests
+
+print(find_all_angles(shape))
