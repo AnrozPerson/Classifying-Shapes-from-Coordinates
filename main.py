@@ -34,6 +34,9 @@ def side_length(a, b):
     side_c = math.sqrt(side_a**2 + side_b**2)
     return side_c
 
+def all_side_equal(coord):
+    pass
+
 def invalid_input(coord):
     if coord in shape:
         return True
@@ -44,7 +47,7 @@ def invalid_input(coord):
 #User Input
 
 ### "Empty" Variables, simply to make code more understandable
-### Inputs not dusted up for expetions yet, will fix later
+### Inputs not dusted up for exceptions yet, will fix later
 A = shape.append(tuple(map(int, input("Vertex A: ").split(","))))
 if invalid_input(A) is True:
     A = shape.append(tuple(map(int, input("Error: Vertex A: ").split(","))))
