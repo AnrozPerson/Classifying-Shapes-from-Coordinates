@@ -39,8 +39,7 @@ def side_length(a, b):
 def all_side_equal(coord):
     if side_length(coord[0], coord[1]) == side_length(coord[1], coord[2]) == side_length(coord[2], coord[3]) == side_length(coord[3], coord[0]):
         return "all_sides_equal"
-    else:
-        return False
+    pass
 ###Find angle should take 3 points and find angle for centre point
 ###Use the law of cosines
 ###Find Angle of point_b
@@ -60,19 +59,41 @@ def find_all_angles(coord):
     return angles
 
 ###Parallel lines will have equal alternate angles
+###Current code does not work with trapezium, only parallelograms, rhombuses, squares and rectangles
 def find_parallel_1(angle_list):
     if angle_list[0] == angle_list[2]:
         return "1_parallel"
     elif angle_list[1] == angle_list[3]:
         return "1_parallel"
-    else:
-        return False
+    pass
 
 def find_parallel_2(angle_list):
     if angle_list[0] == angle_list[2] and angle_list[1] == angle_list[3]:
         return "2_parallel"
-    else:
-        return False
+    pass
+
+###Determine that AB = BC
+
+def adjacent_sides_equal(point_a, point_b, point_c):
+    if side_length(point_a, point_b) == side_length(point_a, point_b):
+        return True
+    pass
+
+###Cycle through all side pairs, if there are 2 side paits equal it will return that
+def adjacent_sides_equal_2(shape):
+    count = 0
+    if adjacent_sides_equal(shape[3], shape[0], shape[1]):
+        count += 1
+    if adjacent_sides_equal(shape[0], shape[1], shape[2]):
+        count += 1
+    if adjacent_sides_equal(shape[1], shape[2], shape[3]):
+        count += 1
+    if adjacent_sides_equal(shape[2], shape[3], shape[0]):
+        count += 1
+    if count > 1:
+        return "2_pair_equal_adjacent_side"
+    pass
+
 
 
 def invalid_input(coord):
