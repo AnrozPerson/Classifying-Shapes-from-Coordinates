@@ -9,10 +9,12 @@ import math
 ###Shape list to store the coords of unkown shape
 shape = []
 
-shape_check_1 = {"square": ["1_parallel", "2_parallel,", "all_sides_equal", "all_angle_90", "2_pair_equal_adjacent_side"], 
-               "rhombus": ["1_parallel", "2_parallel,", "all_sides_equal", "2_pair_equal_adjacent_side"],
-               "rectangle": ["1_parallel", "2_parallel,", "all_angle_90"],
-               "parallelogram": ["1_parallel", "2_parallel,"],
+global sides
+
+shape_check_1 = {"square": ["1_parallel", "2_parallel", "all_sides_equal", "all_angle_90", "2_pair_equal_adjacent_side"], 
+               "rhombus": ["1_parallel", "2_parallel", "all_sides_equal", "2_pair_equal_adjacent_side"],
+               "rectangle": ["1_parallel", "2_parallel", "all_angle_90"],
+               "parallelogram": ["1_parallel", "2_parallel"],
                "kite": ["2_pair_equal_adjacent_side"],
                "trapezium": ["1_parallel"]}
 shape_check_2 = {"square": ["perpendicular_diagonals", "1_diagonal_bisect_other", "2_diagonal_bisects_others", "1_bisect_angle", "2_bisect_angles", "diagonals_equal_length"],
@@ -136,5 +138,9 @@ shape_1.append(find_parallel_2(find_all_angles(shape)))
 shape_1.append(all_side_equal(shape))
 shape_1.append(all_angles_90(shape))
 shape_1.append(adjacent_sides_equal_2(shape))
-
-print(shape_1)
+for i in shape_1:
+    print(i)
+for i in shape_check_1:
+    if shape_check_1[i] == shape_1:
+        print(i)
+        break
