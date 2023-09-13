@@ -5,6 +5,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+from colorama import Fore, Back, Style
 
 # Shape list to store the coords of unkown shape
 shape = []
@@ -55,8 +56,8 @@ def find_angle(point_a, point_b, point_c):
     side_a = side_length(point_a, point_b)
     side_b = side_length(point_b, point_c)
     side_c = side_length(point_c, point_a)
-    angle = np.degrees(np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c)))
-    return angle
+    angle = math.degrees(math.acos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_a)))
+    return round(float(angle), 2)
 
 
 def find_all_angles(coord):
@@ -129,7 +130,7 @@ def all_angles_90(coord):
 
 ####Code for diagonal
 def find_diagonal_lengths(coord):
-    if side_length(coord[0],coord[2]) == side_length(coord[1],coord[2]):
+    if side_length(coord[0],coord[2]) == side_length(coord[1],coord[3]):
         return "diagonals_equal_length"
     pass
 
@@ -158,14 +159,14 @@ def find_1_bisect(coord):
         count += 1
     if find_gradient(half_2, coord[2]) == find_gradient(coord[0], coord[2]):
         count += 1
-    if count > 2:
+    if count >= 2:
         return "1_diagonal_bisect_other"
     pass
 
 def find_diagonal_angle_bisection(coord):
     a1 = find_angle(coord[2], coord[0], coord[3])
-    a2 = find_angle(coord[0], coord[1], coord[3])
-    check_1 = 0.5*find_angle(coord[1], coord[0], coord[3])
+    a2 = find_angle(coord[2], coord[3], coord[1])
+    check_1 = 0.5*find_angle(coord[3], coord[2], coord[1])
     check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
     if a1 == check_1 :
         return "1_bisect_angle"
@@ -175,8 +176,8 @@ def find_diagonal_angle_bisection(coord):
 
 def find_2_diagonal_angle_bisection(coord):
     a1 = find_angle(coord[2], coord[0], coord[3])
-    a2 = find_angle(coord[0], coord[1], coord[3])
-    check_1 = 0.5*find_angle(coord[1], coord[0], coord[3])
+    a2 = find_angle(coord[2], coord[3], coord[1])
+    check_1 = 0.5*find_angle(coord[3], coord[2], coord[1])
     check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
     if a1 == check_1 and a2 == check_2:
         return "2_bisect_angles"
@@ -185,7 +186,7 @@ def find_2_diagonal_angle_bisection(coord):
 
 
 def find_perpendicular(coord):
-    if find_1_bisect(shape):
+    if find_2_bisection(shape):
         w = find_intersection(coord[1], coord[3])
         if find_angle(coord[1], w, coord[2]) == 90:
             return "perpendicular_diagonals"
@@ -250,7 +251,9 @@ shape.append(D)
 if invalid_shape(shape):
     print("Shape Error. Redo.")
 
+print("")
 
+#print(find_angle(shape[3], shape[0], shape[2]))
 # Test for check 1
 if find_parallel_1(shape):
     shape_1.append(find_parallel_1(shape))
@@ -263,9 +266,41 @@ if all_angles_90(shape):
 if adjacent_sides_equal_2(shape):
     shape_1.append(adjacent_sides_equal_2(shape))
 
+stat_1 = True
+print(Fore.RED + "Side and angle properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
+
 for i in shape_1:
     print(i)
 for i in shape_check_1:
     if shape_check_1[i] == shape_1:
-        print(i)
+        print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
+        stat_1 = False
         break
+if stat_1:
+    print("Unknown Shape")
+
+print("")
+
+if find_perpendicular(shape):
+    shape_2.append(find_perpendicular(shape))
+if find_1_bisect(shape):
+    shape_2.append(find_1_bisect(shape))
+if find_2_bisection(shape):
+    shape_2.append(find_2_bisection(shape))
+if find_diagonal_angle_bisection(shape):
+    shape_2.append(find_diagonal_angle_bisection(shape))
+if find_2_diagonal_angle_bisection(shape):
+    shape_2.append(find_2_diagonal_angle_bisection(shape))
+if find_diagonal_lengths(shape):
+    shape_2.append(find_diagonal_lengths(shape))
+
+stat_2 = True
+print(Fore.RED + "Diagonal properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
+for i in shape_2:
+    print(i)
+for i in shape_check_2:
+    if shape_check_2[i] == shape_2:
+        print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
+        stat_2 = False
+if stat_2:
+    print("Unknown Shape")
