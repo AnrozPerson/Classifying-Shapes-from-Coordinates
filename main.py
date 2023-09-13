@@ -83,7 +83,7 @@ def find_parallel_2(coord):
 ###Determine that AB = BC
 
 def adjacent_sides_equal(point_a, point_b, point_c):
-    if side_length(point_a, point_b) == side_length(point_a, point_b):
+    if side_length(point_a, point_b) == side_length(point_b, point_c):
         return True
     pass
 
@@ -106,7 +106,7 @@ def all_angles_90(coord):
     count = 0
     a = find_all_angles(coord)
     for i in a:
-        if round(int(i), 2) == 90.0:
+        if round(int(i), 2) == 90.0: 
             count += 1
     if count == 4:
         return "all_angle_90"
@@ -116,34 +116,56 @@ def all_angles_90(coord):
 def invalid_input(coord):
     if coord in shape:
         return True
+    return False
 
 
 
 
 #User Input
-
-### "Empty" Variables, simply to make code more understandable
-### Inputs not dusted up for exceptions yet, will fix later
-A = shape.append(tuple(map(int, input("Vertex A: ").split(","))))
-if invalid_input(A) is True:
-    A = shape.append(tuple(map(int, input("Error: Vertex A: ").split(","))))
-B = shape.append(tuple(map(int, input("Vertex B: ").split(","))))
-if invalid_input(B) is True:
-    B = shape.append(tuple(map(int, input("Error: Vertex B: ").split(","))))
-C = shape.append(tuple(map(int, input("Vertex C: ").split(","))))
-if invalid_input(C) is True:
-    C = shape.append(tuple(map(int, input("Error: Vertex C: ").split(","))))
-D = shape.append(tuple(map(int, input("Vertex D: ").split(","))))
-if invalid_input(D) is True:
-    D = shape.append(tuple(map(int, input("Error: Vertex D: ").split(","))))
+try:
+    A = tuple(map(int, input("Vertex A: ").split(",")))
+except:
+    A = tuple(map(int, input("Error: Vertex A: ").split(",")))
+while invalid_input(A) is True:
+    A = tuple(map(int, input("Error: Vertex A: ").split(",")))
+shape.append(A)
+try:
+    B = tuple(map(int, input("Vertex B: ").split(",")))
+except:
+    A = tuple(map(int, input("Error: Vertex A: ").split(",")))
+while invalid_input(B) is True:
+    B = tuple(map(int, input("Error: Vertex B: ").split(",")))
+    invalid_input(B)
+shape.append(B)
+try:
+    C = tuple(map(int, input("Vertex C: ").split(",")))
+except:
+    C = tuple(map(int, input("Error: Vertex C: ").split(",")))
+while invalid_input(C) is True:
+    C = tuple(map(int, input("Error: Vertex C: ").split(",")))
+    invalid_input(C)
+shape.append(C)
+try:
+    D = tuple(map(int, input("Vertex D: ").split(",")))
+except:
+    D = tuple(map(int, input("Error: Vertex D: ").split(",")))
+while invalid_input(D) is True:
+    D = tuple(map(int, input("Error: Vertex D: ").split(",")))
+    invalid_input(D)
+shape.append(D)
 
 ###Tests
+if find_parallel_1(shape):
+    shape_1.append(find_parallel_1(shape))
+if find_parallel_2(shape):
+    shape_1.append(find_parallel_2(shape))
+if all_side_equal(shape):
+    shape_1.append(all_side_equal(shape))
+if all_angles_90(shape):
+    shape_1.append(all_angles_90(shape))
+if adjacent_sides_equal_2(shape):
+    shape_1.append(adjacent_sides_equal_2(shape))
 
-shape_1.append(find_parallel_1(shape))
-shape_1.append(find_parallel_2(shape))
-shape_1.append(all_side_equal(shape))
-shape_1.append(all_angles_90(shape))
-shape_1.append(adjacent_sides_equal_2(shape))
 for i in shape_1:
     print(i)
 for i in shape_check_1:
