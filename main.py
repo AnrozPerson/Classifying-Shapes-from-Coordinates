@@ -55,8 +55,7 @@ def find_angle(point_a, point_b, point_c):
     side_a = side_length(point_a, point_b)
     side_b = side_length(point_b, point_c)
     side_c = side_length(point_c, point_a)
-    angle = np.degrees(
-        np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c)))
+    angle = np.degrees(np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_c)))
     return angle
 
 
@@ -163,9 +162,36 @@ def find_1_bisect(coord):
         return "1_diagonal_bisect_other"
     pass
 
-def find_perpendicular(coord):
+def find_diagonal_angle_bisection(coord):
+    a1 = find_angle(coord[2], coord[0], coord[3])
+    a2 = find_angle(coord[0], coord[1], coord[3])
+    check_1 = 0.5*find_angle(coord[1], coord[0], coord[3])
+    check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
+    if a1 == check_1 :
+        return "1_bisect_angle"
+    if a2 == check_2:
+        return "1_bisect_angle"
     pass
 
+def find_2_diagonal_angle_bisection(coord):
+    a1 = find_angle(coord[2], coord[0], coord[3])
+    a2 = find_angle(coord[0], coord[1], coord[3])
+    check_1 = 0.5*find_angle(coord[1], coord[0], coord[3])
+    check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
+    if a1 == check_1 and a2 == check_2:
+        return "2_bisect_angles"
+    pass
+
+
+
+def find_perpendicular(coord):
+    if find_1_bisect(shape):
+        w = find_intersection(coord[1], coord[3])
+        if find_angle(coord[1], w, coord[2]) == 90:
+            return "perpendicular_diagonals"
+        else:
+            pass
+    pass
 
 def invalid_input(coord):
     if coord in shape:
