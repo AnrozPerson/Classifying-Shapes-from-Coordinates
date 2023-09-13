@@ -141,15 +141,28 @@ def find_intersection(point_a, point_b):
     y = (point_a[1] + point_b[1])/2
     return (x,y)
 
-def find_bisection(coord):
+def find_2_bisection(coord):
     bisect_1 = find_intersection(coord[0], coord[2])
     bisect_2 = find_bisection(coord[1], coord[3])
     if bisect_2 == bisect_1:
         return "2_diagonal_bisects_others"
     pass
 
+###If a line bisects another line, the point of intersection and a corner of reference should have the same gradient as the original diagonal
+###Find gradient of diagonal, then gradient of smaller "line" -> challenge of finding whether midpoint of segment actually lies on the other line.
 def find_1_bisect(coord):
+    ###Check for first line
+    count = 0
+    half_1 = find_intersection(coord[0], coord[2])
+    half_2 = find_intersection(coord[1], coord[3])
+    if find_gradient(half_1, coord[3]) == find_gradient(coord[1], coord[3]):
+        count += 1
+    if find_gradient(half_2, coord[2]) == find_gradient(coord[0], coord[2]):
+        count += 1
+    if count > 2:
+        return "1_diagonal_bisect_other"
     pass
+
 def find_perpendicular(coord):
     pass
 
@@ -212,7 +225,7 @@ if invalid_shape(shape):
     print("Shape Error. Redo.")
 
 
-# Tests
+# Test for check 1
 if find_parallel_1(shape):
     shape_1.append(find_parallel_1(shape))
 if find_parallel_2(shape):
