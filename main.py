@@ -143,7 +143,7 @@ def find_intersection(point_a, point_b):
 
 def find_2_bisection(coord):
     bisect_1 = find_intersection(coord[0], coord[2])
-    bisect_2 = find_bisection(coord[1], coord[3])
+    bisect_2 = find_intersection(coord[1], coord[3])
     if bisect_2 == bisect_1:
         return "2_diagonal_bisects_others"
     pass
