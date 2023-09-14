@@ -31,8 +31,8 @@ shape_check_2 = {"square": ["perpendicular_diagonals", "1_diagonal_bisect_other"
 
 ###Respective output for each property
 
-prop_1 = {}
-prop_2 = {}
+prop_1 = {"1_parallel": "One pair of parallel sides", "2_parallel": "Two pairs of parallel sides", "all_sides_equal": "All sides equal", "all_angle_90": "All angles 90 degrees", "2_pair_equal_adjacent_side": "Two pairs of adjacent equal sides"}
+prop_2 = {"perpendicular_diagonals": "Diagonals are perpendicular", "1_diagonal_bisect_other": "One diagonal bisects the other", "2_diagonal_bisects_others": "Both diagonals bisect each other", "1_bisect_angle": "One diagonal bisects the angles it passes through", "2_bisect_angles": "Both diagonals bisect the angles they pass through", "diagonals_equal_length": "Diagonals are equal in length"}
 
 # 2 lists below for each shape_check respectively
 # Each list will slowly be built up as properties are identified
@@ -299,7 +299,7 @@ stat_1 = True
 print(Fore.RED + "Side and angle properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
 
 for i in shape_1:
-    print(i, 5*" ", Fore.RED + sides_1[i] + Style.RESET_ALL)
+    print(prop_1[i], 5*" ", Fore.RED + sides_1[i] + Style.RESET_ALL)
 for i in shape_check_1:
     if shape_check_1[i] == shape_1:
         print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
@@ -326,7 +326,7 @@ if find_diagonal_lengths(shape):
 stat_2 = True
 print(Fore.RED + "Diagonal properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
 for i in shape_2:
-    print(i)
+    print(prop_2[i])
 for i in shape_check_2:
     if shape_check_2[i] == shape_2:
         print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
