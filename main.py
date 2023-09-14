@@ -10,7 +10,11 @@ from colorama import Fore, Back, Style
 # Shape list to store the coords of unkown shape
 shape = []
 
-global sides
+global sides_1
+global side2_2
+
+sides_1 = {}
+sides_2 = {}
 
 shape_check_1 = {"square": ["1_parallel", "2_parallel", "all_sides_equal", "all_angle_90", "2_pair_equal_adjacent_side"],
                  "rhombus": ["1_parallel", "2_parallel", "all_sides_equal", "2_pair_equal_adjacent_side"],
@@ -24,6 +28,11 @@ shape_check_2 = {"square": ["perpendicular_diagonals", "1_diagonal_bisect_other"
                  "parallelogram": ["1_diagonal_bisect_other", "2_diagonal_bisects_others"],
                  "kite": ["perpendicular_diagonals", "1_diagonal_bisect_other", "1_bisect_angle"],
                  "trapezium": []}
+
+###Respective output for each property
+
+prop_1 = {}
+prop_2 = {}
 
 # 2 lists below for each shape_check respectively
 # Each list will slowly be built up as properties are identified
@@ -45,6 +54,8 @@ def side_length(a, b):
 
 def all_side_equal(coord):
     if side_length(coord[0], coord[1]) == side_length(coord[1], coord[2]) == side_length(coord[2], coord[3]) == side_length(coord[3], coord[0]):
+        comment = "AB, BC, CD and DA are " + str(round(side_length(coord[0], coord[1]), 1))
+        sides_1["all_sides_equal"] = comment
         return "all_sides_equal"
     pass
 # Find angle should take 3 points and find angle for centre point
@@ -81,14 +92,19 @@ def find_gradient(point_a, point_b):
 
 def find_parallel_1(coord):
     if find_gradient(coord[0], coord[1]) == find_gradient(coord[2], coord[3]):
+        sides_1["1_parallel"] = "AB and CD"
         return "1_parallel"
     elif find_gradient(coord[0], coord[3]) == find_gradient(coord[1], coord[2]):
+        sides_1["1_parallel"] = "AD and BC"
         return "1_parallel"
     pass
 
 
 def find_parallel_2(coord):
     if find_gradient(coord[0], coord[1]) == find_gradient(coord[2], coord[3]) and find_gradient(coord[0], coord[3]) == find_gradient(coord[1], coord[2]):
+        if "1_parallel" in sides_1:
+            if sides_1["1_parallel"] == "AB and CD":
+                sides_1["2_parallel"] = "also AD and BC"
         return "2_parallel"
     pass
 
@@ -105,15 +121,21 @@ def adjacent_sides_equal(point_a, point_b, point_c):
 
 def adjacent_sides_equal_2(shape):
     count = 0
+    side = []
     if adjacent_sides_equal(shape[3], shape[0], shape[1]):
+        side.append("AD and AB")
         count += 1
     if adjacent_sides_equal(shape[0], shape[1], shape[2]):
+        side.append("AB and BC")
         count += 1
     if adjacent_sides_equal(shape[1], shape[2], shape[3]):
+        side.append("BC and CD")
         count += 1
     if adjacent_sides_equal(shape[2], shape[3], shape[0]):
+        side.append("CD and AD")
         count += 1
     if count > 1:
+        sides_1["2_pair_equal_adjacent_side"] = ", ".join(side)
         return "2_pair_equal_adjacent_side"
     pass
 
@@ -125,6 +147,7 @@ def all_angles_90(coord):
         if round(float(i), 2) == 90.00:
             count += 1
     if count == 4:
+        sides_1["all_angle_90"] = "DAB, ABC, BCD, CDA"
         return "all_angle_90"
     pass
 
@@ -192,6 +215,12 @@ def find_perpendicular(coord):
             return "perpendicular_diagonals"
         else:
             pass
+    if find_2_bisection(shape):
+        w = find_intersection(coord[0], coord[2])
+        if find_angle(coord[0], w, coord[3]) == 90:
+            return "perpendicular_diagonals"
+        else:
+            pass    
     pass
 
 def invalid_input(coord):
@@ -270,7 +299,7 @@ stat_1 = True
 print(Fore.RED + "Side and angle properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
 
 for i in shape_1:
-    print(i)
+    print(i, 5*" ", Fore.RED + sides_1[i] + Style.RESET_ALL)
 for i in shape_check_1:
     if shape_check_1[i] == shape_1:
         print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
@@ -304,3 +333,4 @@ for i in shape_check_2:
         stat_2 = False
 if stat_2:
     print("Unknown Shape")
+
