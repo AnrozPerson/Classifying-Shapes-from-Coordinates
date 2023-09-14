@@ -243,6 +243,22 @@ def invalid_shape(coord):
     return False
 
 
+def sort_vertices(coord):
+    c1 = find_angle(coord[3], coord[0], coord[2])
+    c2 = find_angle(coord[1], coord[0], coord[2])
+    c3 = find_angle(coord[3], coord[0], coord[1])
+    angles = [c1, c2, c3]
+    angles.sort()
+    angles.reverse()
+    print(angles)
+    if angles[0] == c1:
+        return [coord[0], coord[2], coord[1], coord[3]]
+    elif angles[0] ==  c2:
+        return [coord[0], coord[1], coord[3], coord[2]]
+    elif angles[0] == c3:
+        return [coord[0], coord[3], coord[2], coord[1]]
+    pass
+
 # User Input
 
 shape = []
@@ -277,6 +293,9 @@ while invalid_input(D) is True:
     D = tuple(map(int, input("Error: Vertex D: ").split(",")))
     invalid_input(D)
 shape.append(D)
+
+shape = sort_vertices(shape)
+print(shape)
 if invalid_shape(shape):
     print("Shape Error. Redo.")
 
