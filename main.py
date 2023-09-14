@@ -67,7 +67,7 @@ def find_angle(point_a, point_b, point_c):
     side_a = side_length(point_a, point_b)
     side_b = side_length(point_b, point_c)
     side_c = side_length(point_c, point_a)
-    angle = math.degrees(math.acos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_a)))
+    angle = np.degrees(np.arccos((side_a**2 + side_b**2 - side_c**2)/(2*side_b*side_a)))
     return round(float(angle), 2)
 
 
@@ -154,11 +154,13 @@ def all_angles_90(coord):
 ####Code for diagonal
 def find_diagonal_lengths(coord):
     if side_length(coord[0],coord[2]) == side_length(coord[1],coord[3]):
+        comment = "AC and BD are " + str(round(side_length(coord[1],coord[3]), 1))
+        sides_2["diagonals_equal_length"] = comment
         return "diagonals_equal_length"
     pass
 
 ###Find midpoint of a segment through "averaging" the points
-###(x1 + x2)/(y1+y2), do for both diagonals, if they are both the same, then both intersect
+###(x1 + x2)/2, (y1+y2)/2, do for both diagonals, if they are both the same, then both intersect
 def find_intersection(point_a, point_b):
     x = (point_a[0] + point_b[0])/2
     y = (point_a[1] + point_b[1])/2
@@ -168,6 +170,7 @@ def find_2_bisection(coord):
     bisect_1 = find_intersection(coord[0], coord[2])
     bisect_2 = find_intersection(coord[1], coord[3])
     if bisect_2 == bisect_1:
+        sides_2["2_diagonal_bisects_others"] = "AC and BD both bisect each other"
         return "2_diagonal_bisects_others"
     pass
 
@@ -175,27 +178,48 @@ def find_2_bisection(coord):
 ###Find gradient of diagonal, then gradient of smaller "line" -> challenge of finding whether midpoint of segment actually lies on the other line.
 def find_1_bisect(coord):
     ###Check for first line
+    side = []
     count = 0
     half_1 = find_intersection(coord[0], coord[2])
     half_2 = find_intersection(coord[1], coord[3])
     if find_gradient(half_1, coord[3]) == find_gradient(coord[1], coord[3]):
+        sides_2["1_diagonal_bisect_other"] = "AC bisects BD"
         count += 1
-    if find_gradient(half_2, coord[2]) == find_gradient(coord[0], coord[2]):
+    elif find_gradient(half_2, coord[2]) == find_gradient(coord[0], coord[2]):
+        sides_2["1_diagonal_bisect_other"] = "BD bisects AC"
         count += 1
-    if count >= 2:
+    if count >= 1:
+
         return "1_diagonal_bisect_other"
     pass
 
 def find_diagonal_angle_bisection(coord):
+    count = 0
+    side = ""
     a1 = find_angle(coord[2], coord[0], coord[3])
     a2 = find_angle(coord[2], coord[3], coord[1])
-    check_1 = 0.5*find_angle(coord[3], coord[2], coord[1])
-    check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
-    if a1 == check_1 :
+    a3 = find_angle(coord[1], coord[2], coord[0])
+    a4 = find_angle(coord[0], coord[1], coord[3])
+    check_1 = 0.5*find_angle(coord[1], coord[0], coord[3])
+    check_2 = 0.5*find_angle(coord[2], coord[3], coord[0])
+    check_3 = 0.5*find_angle(coord[1], coord[2], coord[3])
+    check_4 = 0.5*find_angle(coord[0], coord[1], coord[2])
+    if round(a1, 2) == round(check_1, 2) and round(a3, 2) == round(check_3, 2):
+        count += 1 
+        side = "A"
+    if round(a2, 2) == round(check_2, 2) and round(a4, 2) == round(check_4, 2):
+        count += 1
+        side = "B"
+    if count == 1:
+        if side == "A":
+            sides_2["1_bisect_angle"] = "AC"
+            return "1_bisect_angle"
+        elif side == "B":
+            sides_2["1_bisect_angle"] = "BD"
+            return "1_bisect_angle"
+    elif count == 2:
+        sides_2["1_bisect_angle"] = "AC and BD"
         return "1_bisect_angle"
-    if a2 == check_2:
-        return "1_bisect_angle"
-    pass
 
 def find_2_diagonal_angle_bisection(coord):
     a1 = find_angle(coord[2], coord[0], coord[3])
@@ -203,21 +227,24 @@ def find_2_diagonal_angle_bisection(coord):
     check_1 = 0.5*find_angle(coord[3], coord[2], coord[1])
     check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
     if a1 == check_1 and a2 == check_2:
+        sides_2["2_bisect_angles"] = "AC and BD"
         return "2_bisect_angles"
     pass
 
 
 
 def find_perpendicular(coord):
-    if find_2_bisection(shape):
+    if find_1_bisect(shape):
         w = find_intersection(coord[1], coord[3])
         if find_angle(coord[1], w, coord[2]) == 90:
+            sides_2["perpendicular_diagonals"] = "AC and BD are perpendicular"
             return "perpendicular_diagonals"
         else:
             pass
-    if find_2_bisection(shape):
+    if find_1_bisect(shape):
         w = find_intersection(coord[0], coord[2])
         if find_angle(coord[0], w, coord[3]) == 90:
+            sides_2["perpendicular_diagonals"] = "AC and BD are perpendicular"
             return "perpendicular_diagonals"
         else:
             pass    
@@ -250,7 +277,6 @@ def sort_vertices(coord):
     angles = [c1, c2, c3]
     angles.sort()
     angles.reverse()
-    print(angles)
     if angles[0] == c1:
         return [coord[0], coord[2], coord[1], coord[3]]
     elif angles[0] ==  c2:
@@ -345,11 +371,10 @@ if find_diagonal_lengths(shape):
 stat_2 = True
 print(Fore.RED + "Diagonal properties for " + str(shape[0]) + ", " + str(shape[1]) + ", " + str(shape[2]) + " and " + str(shape[3]) + Style.RESET_ALL)
 for i in shape_2:
-    print(prop_2[i])
+    print(prop_2[i] + 5*" " + Fore.RED + sides_2[i] + Style.RESET_ALL)
 for i in shape_check_2:
     if shape_check_2[i] == shape_2:
         print(f"CONCLUSION: The quadrilateral is a {Fore.RED + i.upper()}" + Style.RESET_ALL)
         stat_2 = False
 if stat_2:
     print("Unknown Shape")
-
