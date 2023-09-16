@@ -7,7 +7,6 @@ import numpy as np
 import math
 from colorama import Fore, Back, Style
 
-
 # Shape list to store the coords of unkown shape
 shape = []
 
@@ -237,11 +236,10 @@ def find_2_diagonal_angle_bisection(coord):
 def find_perpendicular(coord):
     m1 = find_gradient(coord[1], coord[3])
     m2 = find_gradient(coord[0], coord[2])
-
     if m1 == "up" or m2 == "up" and m1 == 0 or m2 == 0:
         sides_2["perpendicular_diagonals"] = "AC and BD are perpendicular"
         return "perpendicular_diagonals"
-    elif m1 == -(1/m2):
+    elif m1*m2 == -1:
         sides_2["perpendicular_diagonals"] = "AC and BD are perpendicular"
         return "perpendicular_diagonals"
     else:
