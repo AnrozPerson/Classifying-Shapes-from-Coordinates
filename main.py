@@ -4,7 +4,6 @@
 # Import numpy for math functions
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 from colorama import Fore, Back, Style
 
 # Shape list to store the coords of unkown shape
@@ -40,12 +39,13 @@ prop_2 = {"perpendicular_diagonals": "Diagonals are perpendicular", "1_diagonal_
 shape_1 = []
 shape_2 = []
 # a and b will be tuples holding coordinates
+##(0,0) and (1,1)
 
 
 def side_length(a, b):
     side_a = a[0] - b[0]
     side_b = a[1] - b[1]
-    side_c = math.sqrt(side_a**2 + side_b**2)
+    side_c = np.sqrt(side_a**2 + side_b**2)
     return side_c
 
 # AB, BC, CD and DA are all sides
@@ -317,7 +317,7 @@ while invalid_input(D) is True:
 shape.append(D)
 
 shape = sort_vertices(shape)
-print(shape)
+
 if invalid_shape(shape):
     print("Shape Error. Redo.")
 
