@@ -5,6 +5,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from colorama import Fore, Back, Style
+import sys; import time; import os
 
 
 # Shape list to store the coords of unkown shape
@@ -289,6 +290,10 @@ def sort_vertices(coord):
 # User Input
 def main():
     shape = []
+    #sides_1 = {}
+    #sides_2 = {}
+    shape_1 = []
+    shape_2 = []
     print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "#"*50 + Style.RESET_ALL)
     try:
         A = tuple(map(int, input(Fore.GREEN + "Vertex A: " + Style.RESET_ALL).split(",")))
@@ -384,7 +389,17 @@ def main():
             print("")
             print(f"CONCLUSION: The quadrilateral is a {Fore.CYAN + i.upper()}" + Style.RESET_ALL)
             stat_2 = False
+            break
     if stat_2:
         print("Unknown Shape")
-    exit()
+    query = input("Test again (Y/N): ")
+    while query:
+        if query.lower() == "y":
+            os.system("cls")
+            main()
+        elif query.lower() == "n":
+            os.system("cls")
+            exit()
+        else:
+            query = input("Test again (Y/N): ")
 main()
