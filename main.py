@@ -9,11 +9,13 @@ import sys; import time; import os
 
 
 # Shape list to store the coords of unkown shape
-shape = []
+
 
 global sides_1
 global sides_2
+global shape
 
+shape = []
 sides_1 = {}
 sides_2 = {}
 
@@ -251,6 +253,7 @@ def find_perpendicular(coord):
 def invalid_input(coord):
     if coord in shape:
         return True
+    
     return False
 
 
