@@ -298,37 +298,32 @@ def main():
     shape_1 = []
     shape_2 = []
     print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "#"*50 + Style.RESET_ALL)
-    try:
-        A = tuple(map(int, input(Fore.GREEN + "Vertex A: " + Style.RESET_ALL).split(",")))
-    except:
-        A = tuple(map(int, input("Error: Vertex A: ").split(",")))
-    while invalid_input(A) is True:
-        A = tuple(map(int, input("Error: Vertex A: ").split(",")))
-    shape.append(A)
-    try:
-        B = tuple(map(int, input(Fore.GREEN + "Vertex B: "  + Style.RESET_ALL).split(",")))
-    except:
-        A = tuple(map(int, input("Error:" + " Vertex A: ").split(",")))
-    while invalid_input(B) is True:
-        B = tuple(map(int, input("Error: Vertex B: ").split(",")))
-        invalid_input(B)
-    shape.append(B)
-    try:
-        C = tuple(map(int, input(Fore.GREEN + "Vertex C: " + Style.RESET_ALL).split(",")))
-    except:
-        C = tuple(map(int, input("Error: Vertex C: ").split(",")))
-    while invalid_input(C) is True:
-        C = tuple(map(int, input("Error: Vertex C: ").split(",")))
-        invalid_input(C)
-    shape.append(C)
-    try:
-        D = tuple(map(int, input(Fore.GREEN + "Vertex D: " + Style.RESET_ALL).split(",")))
-    except:
-        D = tuple(map(int, input("Error: Vertex D: ").split(",")))
-    while invalid_input(D) is True:
-        D = tuple(map(int, input("Error: Vertex D: ").split(",")))
-        invalid_input(D)
-    shape.append(D)
+    vertices = ["A", "B", "C", "D"]
+    vertex = 0
+    incorrect = True
+    shape = []
+
+    while vertex < 4:
+        while incorrect:
+            v =  input(Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
+            error = True
+            while error:
+                try:
+                    corner = tuple(map(int, v.split(",")))
+                    error = False
+                except:
+                    v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
+            check = invalid_input(corner)
+            while check == "invalid":
+                v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
+                corner = tuple(map(int, v.split(",")))
+                check = invalid_input(corner)
+            incorrect = False
+        #v = v.split(",")
+        #v = tuple(map(int, v))
+        shape.append(corner)
+        vertex += 1
+        incorrect = True
 
     shape = sort_vertices(shape)
 
