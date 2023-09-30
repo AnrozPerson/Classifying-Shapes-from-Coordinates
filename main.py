@@ -252,7 +252,7 @@ def find_perpendicular(coord):
 
 def invalid_input(coord):
     if coord in shape:
-        return True
+        return "invalid"
     
     return False
 
@@ -290,18 +290,18 @@ def sort_vertices(coord):
         return [coord[0], coord[3], coord[2], coord[1]]
     pass
 
+global check
+
 # User Input
 def main():
     shape = []
-    #sides_1 = {}
-    #sides_2 = {}
     shape_1 = []
     shape_2 = []
     print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "#"*50 + Style.RESET_ALL)
     vertices = ["A", "B", "C", "D"]
     vertex = 0
     incorrect = True
-    shape = []
+    check = "valid"
 
     while vertex < 4:
         while incorrect:
@@ -313,11 +313,20 @@ def main():
                     error = False
                 except:
                     v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
-            check = invalid_input(corner)
+            for i in shape:
+                if corner == i:
+                    check = "invalid"
             while check == "invalid":
                 v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
-                corner = tuple(map(int, v.split(",")))
-                check = invalid_input(corner)
+                error = True
+                while error:
+                    try:
+                        corner = tuple(map(int, v.split(",")))
+                        error = False
+                    except:
+                        v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
+                if corner not in shape:
+                    check = "valid"
             incorrect = False
         #v = v.split(",")
         #v = tuple(map(int, v))
@@ -329,13 +338,12 @@ def main():
 
     if invalid_shape(shape):
         print(Style.BRIGHT + Fore.RED + "Shape Error. Redo." + Style.RESET_ALL)
+        print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "#"*50 + Style.RESET_ALL)
+        print(Style.RESET_ALL + "")
         main()
-    print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "#"*50 + Style.RESET_ALL)
 
-    print(Style.RESET_ALL + "")
-
-    #print(find_angle(shape[3], shape[0], shape[2]))
-    # Test for check 1
+        #print(find_angle(shape[3], shape[0], shape[2]))
+        # Test for check 1
     if find_parallel_1(shape):
         shape_1.append(find_parallel_1(shape))
     if find_parallel_2(shape):
