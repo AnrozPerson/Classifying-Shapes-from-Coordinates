@@ -230,7 +230,7 @@ def find_2_diagonal_angle_bisection(coord):
     a2 = find_angle(coord[2], coord[3], coord[1])
     check_1 = 0.5*find_angle(coord[3], coord[2], coord[1])
     check_2 = 0.5*find_angle(coord[0], coord[1], coord[2])
-    if a1 == check_1 and a2 == check_2:
+    if round(a1, 1) == round(check_1, 1) and round(a2, 1) == round(check_2, 1):
         sides_2["2_bisect_angles"] = "AC and BD"
         return "2_bisect_angles"
     pass
