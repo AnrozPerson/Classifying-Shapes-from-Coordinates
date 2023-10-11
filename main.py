@@ -251,9 +251,9 @@ def find_perpendicular(coord):
 
 
 def invalid_input(coord):
+    print(coord)
     if coord in shape:
         return "invalid"
-    
     return False
 
 
