@@ -251,8 +251,9 @@ def find_perpendicular(coord):
 
 
 def invalid_input(coord):
-    print(coord)
     if coord in shape:
+        return "invalid"
+    if len(coord) != 2:
         return "invalid"
     return False
 
@@ -313,8 +314,10 @@ def main():
                     error = False
                 except:
                     v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
+            if len(corner) != 2:
+                check = "invalid"
             for i in shape:
-                if corner == i:
+                if corner == i or len(corner) != 2:
                     check = "invalid"
             while check == "invalid":
                 v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
@@ -325,7 +328,7 @@ def main():
                         error = False
                     except:
                         v = input(Fore.RED + "Error: " + Fore.GREEN + f"Vertex {vertices[vertex]}: " + Style.RESET_ALL)
-                if corner not in shape:
+                if corner not in shape and len(corner) == 2:
                     check = "valid"
             incorrect = False
         #v = v.split(",")
@@ -333,8 +336,10 @@ def main():
         shape.append(corner)
         vertex += 1
         incorrect = True
-
+    print(shape)
+    print(len(shape[0]))
     shape = sort_vertices(shape)
+    
 
     if invalid_shape(shape):
         print(Style.BRIGHT + Fore.RED + "Shape Error. Redo." + Style.RESET_ALL)
