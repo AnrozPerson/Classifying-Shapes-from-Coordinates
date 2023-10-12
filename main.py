@@ -91,7 +91,6 @@ def find_gradient(point_a, point_b):
         m = "up"
     return m
 # Parallel lines have same GRADIENT!
-# Current code does not work with trapezium, only parallelograms, rhombuses, squares and rectangles
 
 
 def find_parallel_1(coord):
