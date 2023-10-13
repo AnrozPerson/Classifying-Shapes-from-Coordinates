@@ -1,9 +1,12 @@
 # Y9-CAT-Inv2-Arun-Rajayogan
 
 Given Problem:
+
 In a not-too-distant future, (friendly) bipedal robots will be part of daily life. As they navigate a human-centered environment, they will need to detect affordances such as walls, windows, doors, tables, fridges, dishwashers and other objects with quadrilateral faces. One such robot will likely ‘see’ quadrilaterals at an angle so that a square tabletop might look like a rhombus, and a rectangular TV might look like a trapezium or a parallelogram. This is due to how squares and rectangles are projected onto retinas and image sensors. Quadrilateral detection is therefore an important area of computer vision research in industry and academia (online-search “Real-time quadrilateral object corner detection algorithm based on deep learning” if interested).
 For this investigation, we will imagine that a robot is surveying a visual scene (you’ve asked it to load the dishwasher) and it is able to detect edges and corners using its neural networks. These corner coordinates will be superimposed on a Cartesian plane and an algorithm will be required to identify the quadrilateral faces that are detected.
 You will be given four sets of Cartesian coordinates that represent an abstract quadrilateral. These can be joined together to form some of the convex polygons shown below.
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 The program takes in 4 coordinates and considers what shape they are.
 
