@@ -335,8 +335,6 @@ def main():
         shape.append(corner)
         vertex += 1
         incorrect = True
-    print(shape)
-    print(len(shape[0]))
     shape = sort_vertices(shape)
     
 
